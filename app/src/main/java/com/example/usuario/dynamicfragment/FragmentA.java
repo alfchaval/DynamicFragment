@@ -23,6 +23,7 @@ public class FragmentA extends Fragment {
     private EditText edtMessage;
     private Button btnCambiarTamanho;
     private SeekBar sbTamanho;
+    public static final String TAG = "FragmentA";
 
     // Se define la interfaz que servirá de contrato entre el Fragment y la Activity
 
@@ -30,9 +31,21 @@ public class FragmentA extends Fragment {
         void onFragmentAEvent(String message, int size);
     }
 
+    /**
+     * Este método solo funciona desde la API 23 en adelante. Si se ejecuta en una API anterior
+     * no da error pero no funciona la comunicación entre el activity y el fragment
+     *
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        Log.d("FRAGMENT_A","onAttach(Context)");
+        super.onAttach(context);
+    }
+
     @Override
     public void onAttach(Activity activity) {
-        Log.d("onAttach","onAttach");
+        Log.d("FRAGMENT_A","onAttach(Activity)");
         super.onAttach(activity);
         try {
             mCallBack = (FragmentAListener) activity;
@@ -43,14 +56,14 @@ public class FragmentA extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d("onCreate","onCreate");
+        Log.d("FRAGMENT_A","onCreate");
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("onCreateView","onCreateView");
+        Log.d("FRAGMENT_A","onCreateView");
         View view = inflater.inflate(R.layout.fragment_a, container, false);
         edtMessage = view.findViewById(R.id.edtMessage);
         btnCambiarTamanho = view.findViewById(R.id.btnCambiarTamanho);
@@ -60,7 +73,7 @@ public class FragmentA extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.d("onViewCreated","onViewCreated");
+        Log.d("FRAGMENT_A","onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         btnCambiarTamanho.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,57 +86,44 @@ public class FragmentA extends Fragment {
 
     @Override
     public void onStart() {
-        Log.d("onStart","onStart");
+        Log.d("FRAGMENT_A","onStart");
         super.onStart();
     }
 
     @Override
     public void onResume() {
-        Log.d("onResume","onResume");
+        Log.d("FRAGMENT_A","onResume");
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        Log.d("onPause","onPause");
+        Log.d("FRAGMENT_A","onPause");
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        Log.d("onStop","onStop");
+        Log.d("FRAGMENT_A","onStop");
         super.onStop();
     }
 
     @Override
     public void onDestroyView() {
-        Log.d("onDestroyView","onDestroyView");
+        Log.d("FRAGMENT_A","onDestroyView");
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        Log.d("onDestroy","onDestroy");
+        Log.d("FRAGMENT_A","onDestroy");
         super.onDestroy();
     }
 
     @Override
     public void onDetach() {
-        Log.d("onDetach","onDetach");
+        Log.d("FRAGMENT_A","onDetach");
         mCallBack = null;
         super.onDetach();
     }
-
-    /**
-     * Este método solo funciona desde la API 23 en adelante. Si se ejecuta en una API anterior
-     * no da error pero no funciona la comunicación entre el activity y el fragment
-     *
-     * @param context
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-
 }
